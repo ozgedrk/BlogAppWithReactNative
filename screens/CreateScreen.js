@@ -8,6 +8,7 @@ export default function CreateScreen({navigation}) {
   
   return (
     <BlogPostForm 
+      isEditable= {false}
       onSubmit={(title,content)=>{
       addBlogPost(title,content, ()=>navigation.navigate('Index'));
       }} 

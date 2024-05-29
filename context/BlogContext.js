@@ -13,7 +13,10 @@ import CreateDataContext from './CreateDataContext';
             content: action.payload.content,
             },
           ];
-
+        case 'edit_blogpost':
+          return state.map((blogPost)=>{
+            return blogPost.id === action.payload.id ? action.payload : blogPost;
+          })
         case'delete_blogpost':
           return state.filter((blogPost) => blogPost.id !== action.payload)
 
@@ -30,6 +33,14 @@ import CreateDataContext from './CreateDataContext';
       }
     }
   };  
+  const editBlogPost = (dispatch) => {  
+    return (id, title, content, callback) => {
+      dispatch({type: 'edit_blogpost', payload: {id, title, content} });
+      if(callback){
+        callback();
+      }
+    }
+  };  
   const deleteBlogPost = (dispatch) =>{
     return (id) => {
       dispatch({type: 'delete_blogpost', payload: id});
@@ -38,6 +49,6 @@ import CreateDataContext from './CreateDataContext';
 
 export const {Context, Provider}=  CreateDataContext(
   blogReducer,
-  {addBlogPost , deleteBlogPost},
+  {addBlogPost , deleteBlogPost, editBlogPost},
   []
   );
