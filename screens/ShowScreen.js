@@ -10,6 +10,7 @@ const blogPost = state.find((blogPost)=> blogPost.id === route.params.id);
   return (
     <View>
       <Text>{blogPost.title}</Text>
+      <Text>{blogPost.content}</Text>
     </View>
   )
 }

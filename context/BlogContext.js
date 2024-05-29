@@ -1,4 +1,4 @@
-import React, {useState, useReducer} from 'react';
+import React, {useState, useReducer, act} from 'react';
 import CreateDataContext from './CreateDataContext';
 
   const blogReducer = ( state , action ) =>{
@@ -9,8 +9,9 @@ import CreateDataContext from './CreateDataContext';
             ...state,
             {
             id: Math.floor(Math.random()*999999),
-            title: 'Angular'
-            }
+            title: action.payload.title,
+            content: action.payload.content,
+            },
           ];
 
         case'delete_blogpost':
@@ -22,8 +23,11 @@ import CreateDataContext from './CreateDataContext';
   };
 
   const addBlogPost = (dispatch) => {  
-    return () => {
-      dispatch({type: 'add_blogpost'});
+    return (title,content, callback) => {
+      dispatch({type: 'add_blogpost', payload: {title,content} });
+      if(callback){
+        callback();
+      }
     }
   };  
   const deleteBlogPost = (dispatch) =>{
