@@ -8,6 +8,13 @@ export default function IndexScreen( {navigation} ) {
 
   useEffect(()=>{
     getBlogPosts();
+
+    const listener = navigation.addListener('focus', () => {
+      getBlogPosts();
+    });
+    return ()=>{
+      listener.remove();
+    };
   },[]);
 
   return (
